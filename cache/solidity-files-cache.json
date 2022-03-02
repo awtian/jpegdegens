@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/awtian/web3/jpegdegens/contracts/Counter.sol": {
-      "lastModificationDate": 1646238785757,
-      "contentHash": "4340a38df83342db190fb0c0f57564c8",
+      "lastModificationDate": 1646243807618,
+      "contentHash": "9feffd50bd6618c39941317f1737a507",
       "sourceName": "contracts/Counter.sol",
       "solcConfig": {
         "version": "0.8.10",

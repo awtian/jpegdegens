@@ -1,4 +1,5 @@
 import { ethers } from "ethers";
+import Counter from "../artifacts/contracts/Counter.sol/Counter.json"
 
 function getEth() {
   // @ts-ignore;
@@ -32,15 +33,12 @@ async function run () {
 
   const counter = new ethers.Contract(
     process.env.CONTRACT_ADDRESS,
-    [
-      "function count() public",
-      "function getCounter() public view returns (uint32)"
-    ],
-    new ethers.providers.Web3Provider(getEth())
+    Counter.abi,
+    new ethers.providers.Web3Provider(getEth()).getSigner()
   )
   const el = document.createElement("div");
-  async function setCounter () {
-    el.innerHTML = await counter.getCounter();
+  async function setCounter (count?) {
+    el.innerHTML = count || await counter.getCounter();
   }
   setCounter();
 
@@ -48,8 +46,11 @@ async function run () {
   button.innerText = "Increment";
   button.onclick = async function () {
     await counter.count();
-    setCounter();
   }
+
+  counter.on(counter.filters.CounterInc(), function(count) {
+    setCounter(count);
+  })
 
   document.body.appendChild(el);
   document.body.appendChild(button);
